@@ -1,0 +1,26 @@
+# Ranga Flowers Heritage Portal & Peer Collaboration
+
+The static legacy Ranga Flowers website has been completely migrated into a modern Single Page Application architecture. We split the solution into a **C# .NET Core 8 Web API** trailing to an **Angular 18+ Client**.
+
+## 1. Phase 1: Identity & Security
+- **Domain Modeling:** Created `User` and `VerificationOtpDto` entities within the EF Core `AppDbContext`.
+- **API Endpoints:** Developed `AuthController` exposing `/signup` and `/verify`.
+- **Validation:** Added RegEx data annotations (`Saiprasad@1234` rules) for incoming DTOs.
+- **MailKit Dispatch:** Implemented the `IEmailService` sending a stylized 6-digit HTML OTP verification code matching the brand's aesthetic upon signup.
+- **Angular Auth UI:** Recreated the Heritage dark/gold theme for `LoginComponent`, `SignupComponent`, and `VerifyComponent`.
+
+## 2. Ranga Flowers Core Migration (Shop UI)
+- **Global Tokens:** Setup global `styles.scss` for the dark `#090704`, `#C8963C` gold tokens.
+- **Components:** Modularized the old index.html into independent Angular Components (`NavbarComponent`, `HeroComponent`, `FooterComponent`).
+- **Cart State Management:** Created an RxJS `BehaviorSubject` based `CartService` to resolve previous synchronization issues and power the `CartComponent` panel safely.
+
+## 3. Phase 2: Expertise Discovery
+- **Database Architecture:** Implemented `PeerProfile` and `ProjectIdea` tables mapped in EF Core.
+- **LINQ Queries:** Developed `/api/profiles` with active query string handling. It uses `.Where(p => p.Skills.Contains(skill))` to allow users to search for peers like "Angular Developer" or "Floral Design".
+- **Semantic Project Matching:** Constructed intersecting LINQ logic in `ProjectsController` to recommend projects containing required skills that intersect with the user's skillset.
+- **Angular Discovery UX:** Created the `ProfileGalleryComponent` binding input searches dynamically to these API calls.
+
+## 4. Phase 3: Collaboration & Real-Time Tracking
+- **Requests Setup:** Created the `CollaborationRequest` table mapping multiple foreign keys to the `User` class preventing cascade cycles using `.OnDelete(DeleteBehavior.NoAction)`.
+- **SignalR Real-Time:** Initialized the `RequestHub` WebSocket server. When `RequestsController.SendRequest()` or `RespondToRequest()` is hit via REST, the server instantly dispatches a `ReceiveRequestUpdate` push notification to the corresponding `SenderId` or `RecipientId`.
+- **Angular Real-Time Dashboard:** Created `DashboardComponent` consuming the `/hubs/requests` SignalR connection, enabling live status changes (Pending, Accepted, Rejected) for collaboration requests seamlessly without page refreshes.

@@ -1,0 +1,53 @@
+<div style="padding: 120px 32px 40px; min-height: 100vh;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+    
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h1 style="font-family: var(--serif); font-size: 44px; color: var(--gold-lt);">Expertise Gallery</h1>
+      <p style="color: var(--muted); font-size: 14px;">Find peers with specific skills and matching project ideas.</p>
+    </div>
+
+    <!-- Phase 2: Search & Filter -->
+    <div style="display: flex; gap: 12px; margin-bottom: 32px;">
+      <input 
+        type="text" 
+        class="form-input" 
+        placeholder="Enter a skill (e.g. Angular, Floral Design)" 
+        [(ngModel)]="searchQuery" 
+        (keyup.enter)="fetchProfiles()"
+        style="flex: 1;"
+      />
+      <button class="btn-primary" style="width: auto; margin: 0; padding: 0 24px;" (click)="fetchProfiles()">Search</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
+      
+      <!-- Phase 2: Profiles Results (LINQ target) -->
+      <div>
+        <h3 style="color: var(--gold); font-family: var(--mono); font-size: 12px; margin-bottom: 16px;">MATCHED PEERS</h3>
+        <div *ngFor="let profile of profiles" style="background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 16px;">
+          <h4 style="color: var(--cream); font-family: var(--serif); font-size: 20px;">{{ profile.userName }}</h4>
+          <p style="color: var(--gold-lt); font-size: 12px; font-weight: 500; margin-bottom: 8px;">{{ profile.title }}</p>
+          <p style="color: var(--muted); font-size: 13px; margin-bottom: 12px;">{{ profile.bio }}</p>
+          <div style="margin-bottom: 16px;">
+            <span *ngFor="let skill of profile.skills.split(',')" style="background: rgba(200,150,60,0.1); border: 1px solid rgba(200,150,60,0.3); color: var(--gold); font-size: 10px; padding: 4px 8px; border-radius: 4px; margin-right: 8px; display: inline-block; font-family: var(--mono);">
+              {{ skill | trim }}
+            </span>
+          </div>
+          <!-- Phase 3: Send Request -->
+          <button class="btn-primary" style="margin-top: 0; padding: 10px 16px; width: auto;" (click)="sendRequest(profile.id)">Send Collab Request</button>
+        </div>
+      </div>
+
+      <!-- Phase 2: Recommended Ideas -->
+      <div>
+        <h3 style="color: var(--gold); font-family: var(--mono); font-size: 12px; margin-bottom: 16px;">RECOMMENDED PROJECTS</h3>
+        <div *ngFor="let idea of projectIdeas" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 16px; border-radius: 12px; margin-bottom: 12px;">
+          <h4 style="color: var(--cream); font-size: 15px; margin-bottom: 6px;">{{ idea.title }}</h4>
+          <p style="color: var(--muted); font-size: 12px;">{{ idea.desc }}</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

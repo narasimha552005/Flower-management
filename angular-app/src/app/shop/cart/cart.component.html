@@ -1,0 +1,36 @@
+<div class="cart-panel" [class.open]="isOpen$ | async">
+  <div class="cart-panel-head">
+    <span class="cart-panel-title">🛒 Your Selection</span>
+    <button class="cart-close" (click)="closePanel()"><i class="fas fa-times"></i></button>
+  </div>
+  
+  <div class="cart-items">
+    <ng-container *ngIf="(items$ | async) as items">
+      
+      <div class="cart-empty" *ngIf="items.length === 0">
+        <i class="fas fa-shopping-cart"></i>
+        Your selection is empty.<br/>Tap any product to add it.
+      </div>
+
+      <div class="cart-item" *ngFor="let item of items">
+        <div class="cart-item-icon">{{ item.icon }}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">{{ item.name }}</div>
+          <div class="cart-item-cat">Added to booking</div>
+        </div>
+        <i class="fas fa-times cart-item-remove" (click)="removeItem(item.id)"></i>
+      </div>
+
+    </ng-container>
+  </div>
+
+  <div class="cart-footer" *ngIf="(items$ | async) as items">
+    <div class="cart-total">
+      <span>Total Items</span>
+      <strong>{{ items.length }} item{{ items.length !== 1 ? 's' : '' }}</strong>
+    </div>
+    <button class="btn-checkout" (click)="checkout(items)">
+      <i class="fas fa-phone-alt"></i> Contact to Confirm Booking
+    </button>
+  </div>
+</div>

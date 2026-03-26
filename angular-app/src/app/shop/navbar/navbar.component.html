@@ -1,0 +1,17 @@
+<nav class="top-nav">
+  <div class="nav-brand">
+    <span class="nav-brand-icon">🌸</span>
+    <div>
+      <div class="nav-brand-text">RANGA Flowers</div>
+      <div class="nav-brand-sub">Est. 1976 · Amalapuram</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-phone">📞 <span>9246755589</span></div>
+    <div class="nav-cart" (click)="toggleCart()">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cart-label">Cart</span>
+      <div class="cart-badge">{{ cartCount }}</div>
+    </div>
+  </div>
+</nav>

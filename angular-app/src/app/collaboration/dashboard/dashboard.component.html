@@ -1,0 +1,43 @@
+<div style="padding: 120px 32px 40px; min-height: 100vh;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h1 style="font-family: var(--serif); font-size: 36px; color: var(--gold-lt);">Collaboration Dashboard</h1>
+      <p style="color: var(--muted); font-size: 14px;">Manage your inbound and outbound requests here.</p>
+    </div>
+
+    <!-- SignalR Real-Time Notifications -->
+    <div *ngIf="notifications.length > 0" style="margin-bottom: 32px; padding: 16px; background: rgba(58, 86, 54, 0.1); border: 1px solid var(--sage); border-radius: 8px;">
+      <h4 style="color: var(--sage); margin-bottom: 8px; font-size: 12px; text-transform: uppercase;">Live Status Updates</h4>
+      <div *ngFor="let notif of notifications" style="color: var(--cream); font-size: 13px; margin-bottom: 4px;">
+        {{ notif }}
+      </div>
+    </div>
+
+    <!-- Requests List -->
+    <div *ngFor="let req of requests" style="background: var(--surface); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h4 style="color: var(--cream); font-family: var(--serif); font-size: 20px; margin-bottom: 4px;">Request from {{ req.senderName }}</h4>
+        <div style="font-family: var(--mono); font-size: 11px; padding: 4px 8px; border-radius: 4px; display: inline-block;"
+             [ngStyle]="{'background': req.status === 'Pending' ? 'rgba(200,150,60,0.1)' : (req.status === 'Accepted' ? 'rgba(58, 86, 54, 0.2)' : 'rgba(155, 60, 37, 0.2)'),
+                        'color': req.status === 'Pending' ? 'var(--gold)' : (req.status === 'Accepted' ? '#8FC08A' : '#E8A090')}">
+          STATUS: {{ req.status | uppercase }}
+        </div>
+      </div>
+
+      <div *ngIf="req.status === 'Pending'" style="display: flex; gap: 8px;">
+        <button class="btn-primary" style="width: auto; margin: 0; padding: 8px 16px; background: var(--sage);" (click)="respondToRequest(req.id, 'Accepted')">Accept</button>
+        <button class="btn-primary" style="width: auto; margin: 0; padding: 8px 16px; background: transparent; border: 1px solid var(--rust); color: var(--rust);" (click)="respondToRequest(req.id, 'Rejected')">Reject</button>
+      </div>
+      
+      <div *ngIf="req.status === 'Accepted'" style="font-size: 13px; color: var(--gold-lt);">
+        <i class="fas fa-folder-open"></i> Contact Details Unlocked
+      </div>
+    </div>
+
+    <div *ngIf="requests.length === 0" style="text-align: center; color: var(--muted); padding: 40px; border: 1px dashed var(--border); border-radius: 12px;">
+      No pending requests. Return to the Expertise Gallery to find peers.
+    </div>
+
+  </div>
+</div>

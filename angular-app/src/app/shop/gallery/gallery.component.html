@@ -1,0 +1,53 @@
+<div class="gallery-overlay" [class.open]="isOpen" *ngIf="currentData">
+  <div class="gallery-inner">
+    
+    <div class="gallery-hdr">
+      <div class="gallery-hdr-left">
+        <div class="back-btn" (click)="onClose()"><i class="fas fa-arrow-left"></i></div>
+        <div>
+          <div class="gallery-hdr-title">{{ currentData.title }}</div>
+          <div class="gallery-hdr-sub">{{ currentData.sub }}</div>
+        </div>
+      </div>
+      <div class="nav-cart" style="cursor:pointer" (click)="cartService.togglePanel()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-badge" *ngIf="(cartService.items$ | async) as items">{{ items.length }}</div>
+      </div>
+    </div>
+
+    <div class="gallery-hero-band">
+      <span class="ghb-tag">{{ currentData.tag }}</span>
+      <h2 class="ghb-title"><em>{{ currentData.heroTitle }}</em> {{ categoryId | titlecase }}s</h2>
+      <p class="ghb-desc">{{ currentData.heroDesc }}</p>
+      <div class="ghb-divider"><span class="l"></span><i class="fas fa-seedling"></i><span class="l"></span></div>
+    </div>
+
+    <div class="products-section">
+      <div class="products-grid">
+        
+        <div class="product-card" *ngFor="let prod of currentData.products; let i = index" [ngStyle]="{'animation-delay': i*0.1 + 's'}">
+          <div class="product-img">
+            <img *ngIf="prod.image" [src]="prod.image" [alt]="prod.name" class="p-image">
+            <div class="emoji-placeholder" *ngIf="!prod.image">{{ prod.emoji }}</div>
+            <div class="img-badge" [ngClass]="prod.badgeClass || ''">{{ prod.badge }}</div>
+            <div class="img-overlay-actions">
+              <div class="overlay-icon" (click)="addToCart(prod)"><i class="fas fa-cart-plus"></i></div>
+              <div class="overlay-icon"><i class="fas fa-heart"></i></div>
+            </div>
+          </div>
+          <div class="product-body">
+            <div class="product-label">{{ prod.label }}</div>
+            <div class="product-name">{{ prod.name }}</div>
+            <div class="product-desc">{{ prod.desc }}</div>
+            <div class="product-actions">
+              <button class="btn-cart" (click)="addToCart(prod)"><i class="fas fa-cart-plus"></i></button>
+              <button class="btn-book" (click)="addToCart(prod)">Book Now <i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

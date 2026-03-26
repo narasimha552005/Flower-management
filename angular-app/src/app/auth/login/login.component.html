@@ -1,0 +1,48 @@
+<div class="auth-container">
+  <div class="auth-bg"></div>
+  <!-- Spinning accents -->
+  <div class="hero-ring" style="position: absolute; width: 800px; height: 800px; border: 1px solid rgba(200,150,60,0.06); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: spin 50s linear infinite;"></div>
+  
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="auth-brand-icon">🌸</div>
+      <h1 class="auth-title">RANGA Flowers</h1>
+      <div class="auth-subtitle">Welcome Back · Heritage Portal</div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          class="form-input" 
+          formControlName="email" 
+          placeholder="Enter your email" 
+          autocomplete="email">
+        <span *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']" class="error-text">Email is required</span>
+        <span *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']" class="error-text">Please enter a valid email</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          class="form-input" 
+          formControlName="password" 
+          placeholder="Enter your password">
+        <span *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']" class="error-text">Password is required</span>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isSubmitting">
+        <i class="fas fa-sign-in-alt" *ngIf="!isSubmitting"></i>
+        <span>{{ isSubmitting ? 'Authenticating...' : 'Sign In' }}</span>
+      </button>
+
+      <div class="auth-links">
+        Don't have an account? <a (click)="goToSignup()">Sign up here</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+curl.exe :   % Total    % 
+Received % Xferd  Average 
+Speed  Time    Time    Time   
+Current
+At line:1 char:92
++ ... ord123!"}'; curl.exe -X 
+POST -H 'Content-Type: 
+application/json' -d $ ...
++                 ~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: (  % Total  
+      % ... Time   Current:   
+ String) [], RemoteExcepti    
+on
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+                              
+   Dload  Upload  Total   
+Spent   Left   Speed
+
+  0      0   0      0   0     
+ 0      0      0              
+                0
+100    425   0    358 100     
+67    595    111              
+                0
+100    425   0    358 100     
+67    595    111              
+                0
+100    425   0    358 100     
+67    594    111              
+                0
+{"type":"https://tools.ietf.org/html/rfc9110#section-15.5.1","title":"One or more validation errors occurred.","status":400,"errors":{"$":["'F' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 0 | BytePositionInLine: 1."],"dto":["The dto field is required."]},"traceId":"00-4d3ab5e20d6353f64a5b5c20a8152da0-6a9192a82b685c81-00"}

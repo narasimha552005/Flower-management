@@ -1,0 +1,39 @@
+<div class="auth-container">
+  <div class="auth-bg"></div>
+  
+  <div class="auth-card" style="text-align: center;">
+    <div class="auth-brand">
+      <div class="auth-brand-icon">🔐</div>
+      <h1 class="auth-title">Verification Lock</h1>
+      <div class="auth-subtitle">Secure Access Request</div>
+    </div>
+
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;">
+      We have sent a 6-digit one-time password to your registered email.<br>
+      <strong style="color: var(--gold-lt);">{{ email || 'your email address' }}</strong>
+    </p>
+
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input 
+          type="text" 
+          id="otp" 
+          class="form-input" 
+          style="text-align: center; letter-spacing: 12px; font-size: 24px; font-family: var(--mono); padding: 20px;"
+          formControlName="otp" 
+          maxlength="6"
+          placeholder="000000">
+        <span *ngIf="verifyForm.get('otp')?.touched && verifyForm.get('otp')?.errors" class="error-text">Please enter a valid 6-digit OTP</span>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isSubmitting">
+        <i class="fas fa-unlock" *ngIf="!isSubmitting"></i>
+        <span>{{ isSubmitting ? 'Verifying...' : 'Unlock Profile Gallery' }}</span>
+      </button>
+
+      <div class="auth-links">
+        Didn't receive it? <a (click)="resendOtp()">Resend OTP</a>
+      </div>
+    </form>
+  </div>
+</div>

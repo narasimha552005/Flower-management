@@ -1,0 +1,96 @@
+<!-- Hamburger Menu Overlay & Sidebar -->
+<div class="menu-overlay" [class.open]="isMenuOpen" (click)="closeMenu()"></div>
+<div class="side-menu" [class.open]="isMenuOpen">
+  <div class="menu-header">
+    <div class="user-info">
+      <div class="avatar"><i class="fas fa-user"></i></div>
+      <div class="details">
+        <div class="name">{{userName}}</div>
+        <div class="email">{{userEmail}}</div>
+      </div>
+    </div>
+    <button class="close-menu-btn" (click)="closeMenu()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="menu-body">
+    <a class="menu-link"><i class="fas fa-fire"></i> 1. Trending</a>
+    <a class="menu-link"><i class="fas fa-question-circle"></i> 2. Help</a>
+  </div>
+  <div class="menu-footer">
+    <button class="logout-menu-btn" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring-2"></div>
+  <div class="hero-inner">
+    <div class="top-nav" style="position: absolute; top: 20px; left: 24px; z-index: 10;">
+      <button style="background:none; border:none; color:var(--gold); font-size:24px; cursor:pointer;" (click)="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <div class="hero-tag">✦ Est. 1976 · Heritage Floral House</div>
+    <h1>RANGA<br/><em>Flower Decorations</em></h1>
+    <div class="hero-loc">Clock Tower · Durga Temple Road · <span>Amalapuram, AP</span></div>
+    <p class="hero-desc">
+      Nearly five decades of floral artistry — from sacred temple garlands to grand wedding mandapams in Konaseema. Tap a category to explore our work.
+    </p>
+    <div class="hero-divider">
+      <span class="line"></span>
+      <i class="fas fa-crown"></i>
+      <span class="line"></span>
+    </div>
+
+    <!-- 5 CATEGORY CARDS -->
+    <div class="categories-grid">
+      <div class="cat-card" *ngFor="let cat of categories; let i = index" [ngStyle]="{'animation-delay': (i+1)*0.1 + 's'}" (click)="openGallery(cat.id)">
+        <div class="cat-card-bg">
+          <img *ngIf="cat.image" [src]="cat.image" [alt]="cat.name" class="cat-image">
+          <div class="emoji-overlay" *ngIf="!cat.image">{{cat.emoji}}</div>
+        </div>
+        <div class="cat-card-body">
+          <div class="cat-card-icon"><i [class]="cat.icon" style="color:var(--gold-lt)"></i></div>
+          <div class="cat-card-name">{{cat.name}}</div>
+          <div class="cat-card-sub">{{cat.sub}}</div>
+          <div class="cat-card-btn">Explore <i class="fas fa-chevron-right"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Heritage Section -->
+<section class="heritage">
+  <div class="heritage-inner">
+    <div class="heritage-text">
+      <div class="s-tag">Legacy of Elegance</div>
+      <h2 class="heritage-title">A <em>Legacy</em> of Elegance<br/>Since 1976</h2>
+      <p class="heritage-p">
+        For nearly five decades, <strong style="color:#E0D0B8">RANGA Flower Decorations</strong> has been the heart of floral artistry in Amalapuram. Located at the iconic Clock Tower, we weave the traditions of Konaseema into every celebration.
+      </p>
+    </div>
+    <div class="heritage-contact">
+      <h3 style="font-family:var(--serif);font-size:20px;color:var(--cream);font-weight:700;margin-bottom:14px;">Get in Touch</h3>
+      <a href="tel:9246755589" class="contact-row">
+        <i class="fas fa-phone-alt"></i>
+        <div><div class="c-label">Primary Line</div><div class="c-val">9246755589</div></div>
+      </a>
+      <div class="loc-row">
+        <i class="fas fa-map-marker-alt"></i>
+        <p>Clock Tower Center, Durga Temple Street, Amalapuram, Andhra Pradesh</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Full-Screen Gallery Overlay (Loads conditionally on top) -->
+<app-gallery 
+  [categoryId]="activeCategoryId" 
+  [isOpen]="isGalleryOpen"
+  (close)="closeGallery()">
+</app-gallery>
+
+<app-cart-panel></app-cart-panel>
