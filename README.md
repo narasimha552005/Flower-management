@@ -1,1 +1,1 @@
-Developed a web-based Flower Management and Wedding Design System featuring car floral decorations, bridal braid/Jada flower designs, and customized wedding mandapam decorations, enabling users to explore and select floral arrangements for different wedding themes and occasions.
+
